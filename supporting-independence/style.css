@@ -1,0 +1,120 @@
+html, body {
+    margin: 0px 0px 0px 0px;
+    width: 100%
+}
+
+body {
+    font-family: Varela, "Gill Sans", "Gill Sans MT", Ubuntu, Arial, sans-serif;
+    background-color: white;
+    color: black; 
+}
+
+header{
+    width: 100%;
+    background-color: #FFFFFF;
+    border-bottom: 2px solid #F7941D;
+    color: #F7941D;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+
+header h1 {
+    margin: 4px 4px 4px 4px;
+    padding: 4px 4px 4px 128px;
+    background-image: url(luyiln.png);
+    background-position: center left;
+    background-repeat: no-repeat no-repeat;
+    background-size: contain;
+}
+
+header nav ul {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+header nav ul li {
+    background-color: #FFFFFF;
+    color: #000000;
+    list-style-type: none;
+    margin: 0px 0px 0px 0px;
+    outline: 0px 0px 0px 0px;
+    width: 25%;
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 1s, color 1s;
+}
+
+header nav ul li:hover, header nav ul li.selected {
+    background-color: #F7941D;
+    color: #FFFFFF;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.content {
+    max-width: 1008px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content section {
+    display: none;
+}
+
+.content section.selected {
+    display: block;
+}
+
+.content iframe {
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+img.inline {
+    margin: 4px 4px 4px 4px;
+}
+
+figure figcaption {
+    text-align: center;
+    font-size: 0.8em;
+}
+
+footer {
+    width: 100%;
+    margin-top: 4px;
+    border-top: 2px solid #F7941D;
+    font-size: 0.8em;
+}
+
+footer ul {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+footer ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding-right: 8px;
+}
+
+footer ul li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+footer ul li a:hover, footer ul li a:active {
+    text-decoration: underline;
+}

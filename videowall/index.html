@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lives Unlimited</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+			ga('create', 'UA-57931139-1', 'auto');
+			ga('send', 'pageview');
+		</script>
+		<script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
+		<style type="text/css">
+			html, body{
+				top:0px;left:0px;width:100%;height:100%;margin:0px 0px 0px 0px
+			}
+			body{
+				font-family:Varela,"Gill Sans","Gill Sans MT",Ubuntu,Arial,sans-serif;
+				background-color:white;color:black;
+			}
+			h1{
+				color:#F7941D;font-size:3em;padding-left:40px;margin:0px 0px 0px 0px;display:inline-block;position:relative;
+				background-image:url("res/luman.png");background-position:left center;background-repeat:no-repeat no-repeat;background-size:contain
+			}
+			h1 span{
+				opacity:0;display:inline;transition:opacity 1s ease-in-out
+			}
+			h1:hover span{
+				opacity:1
+			}
+			h1 a{
+				position:absolute;top:0px;left:0px;width:100%;height:100%;border:none;outline:none;text-decoration:none
+			}
+			header{
+				padding:8px 8px 8px 8px;
+			}
+			
+			#videowall ul{
+				border-top:2px solid #F7941D;border-bottom:2px solid #F7941D;margin:0px 0px 0px 0px;padding:0;text-align:center;
+			}
+			#videowall ul li{
+				list-style-type:none;display:inline-block;height:256px;width:256px;position:relative;padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;
+			}
+			#videowall ul li div{
+				background-color:rgba(247,148,29,0.8);color:white;display:table-row;width:inherit;height:inherit;z-index:1;opacity:0;transition:opacity 1s ease-in-out
+			}
+			#videowall ul li:hover div{
+				display:table-row;opacity:1
+			}
+			#videowall ul li div p{
+				display:table-cell;vertical-align:middle;font-size:2em;width:inherit;height:inherit;margin:0px 0px 0px 0px;
+			}
+			#videowall ul li a{
+				z-index:2;display:inline-block;height:inherit;width:inherit;text-decoration:none;position:absolute;top:0px;left:0px
+			}
+			
+
+			footer ul{
+				margin:0px 0px 0px 0px;padding:8px 8px 8px 8px;
+			}
+			footer ul li{
+				list-style-type:none;display:inline-block;position:relative;margin-right:16px;height:32px;background-size:cover;background-repeat:no-repeat no-repeat;font-size:0.8em
+			}
+			footer ul li a{
+				position:absolute;z-index:51;top:0px;left:0px;width:100%;height:100%;text-decoration:none;opacity:0;transition:opacity 1s ease-in-out;background-size:cover;background-repeat:no-repeat no-repeat
+			}
+			footer ul li:hover a{
+				opacity:1
+			}
+			footer ul li a span{
+				display:none
+			}
+			
+			.loader{
+				position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:1000
+			}
+			.loader div{
+				background-color:rgba(255,255,255,0.8);vertical-align:central;width:79px;height:128px;background-image:url('res/loader.png');background-repeat:no-repeat no-repeat;background-position:0px 0px;display:inline-block;position:absolute;top:0;left:0;bottom:0;right:0;margin:auto
+			}
+			#person .loader{
+				opacity:0.5
+			}
+						
+			#footer-lu{
+				background-image:url('res/logo/lu64g.png');width:72px
+			}
+			#footer-lu a{
+				background-image:url('res/logo/lu64c.png')
+			}
+			#footer-tr{
+				background-image:url('res/logo/tr64g.png');width:76px
+			}
+			#footer-tr a{
+				background-image:url('res/logo/tr64c.png')
+			}
+			#footer-iy{
+				background-image:url('res/logo/iy64g.png');width:73px
+			}
+			#footer-iy a{
+				background-image:url('res/logo/iy64c.png')
+			}
+			#footer-hu{
+				background-image:url('res/logo/hu64g.png');width:32px
+			}
+			#footer-hu a{
+				background-image:url('res/logo/hu64c.png')
+			}
+			#footer-ev{
+				background-image:url('res/logo/ev64g.png');width:65px
+			}
+			#footer-ev a{
+				background-image:url('res/logo/ev64c.png')
+			}
+			
+			.person{
+				z-index:100;min-height:100%;width:100%;position:absolute;top:0px;left:0px;background-color:white;background-size:cover;background-attachment:fixed;background-position:center center;display:none;opacity:0;transition:opacity 0.5s ease-in-out
+			}
+			.person .close{
+				z-index:199;position:fixed
+			}
+			.close{
+				top:0px;right:0px;margin-top:8px;margin-right:8px
+			}
+			.close img{
+				outline:none;border:none;
+			}
+			#person-player{
+				opacity:0;transition:opacity 0.5s ease
+			}
+			.person-controls{
+				position:absolute;bottom:0px;left:0px;width:100%;background-color:rgba(255,255,255,0.8);z-index:149;padding:4px 4px 4px 4px;display:none;opacity:0;transition:opacity 0.5s ease
+			}
+			.person-controls ul{
+				margin:0px 0px 0px 0px;padding:0px 0px 0px 0px
+			}
+			.person-controls ul li{
+				list-style-type:none;display:inline-block;padding-right:10px;
+			}
+			.person-controls ul li a{
+				border:none;outline:none;text-decoration:none;
+			}
+			.person-controls ul li.volume{
+				padding-right:0px;
+			}
+			#person-info{
+				position:relative;top:0px;width:50%;display:none;opacity:0;transition:opacity 1s ease
+			}
+			#person-info.left{
+				left:0px;
+			}
+			#person-info.right{
+				left:0px;padding-left:50%
+			}
+			#person-info article{
+				margin:16px 16px 16px 16px;background-color:rgba(255,255,255,0.8);padding:16px 16px 16px 16px
+			}
+			#person-info article h2{
+				font-size:3em;margin-top:0px;padding-top:60px;background-image:url('res/luman.png');background-repeat:no-repeat no-repeat;background-size:auto 60px;
+			}
+			#person-info article blockquote{
+				font-size:2em;font-style:italic;background-image:url('res/openquote.png'), url('res/closequote.png');background-repeat:no-repeat no-repeat, no-repeat no-repeat; background-position:left top, right bottom;background-size:32px 32px, 32px 32px;padding:8px 32px 8px 32px
+			}
+			#person-info article p{
+				font-size:1.4em
+			}
+			#person-play{
+				margin:16px 16px 16px 16px
+			}
+			#person-play a{
+				background-color:rgba(23,183,19,0.8);color:white;display:block;padding:16px 16px 16px 16px;background-image:url('res/linkarrow.png');background-position:right center;background-repeat:no-repeat no-repeat;transition:background-color 0.5s ease;
+			}
+			#person-play a:hover{
+				background-color:rgba(23,183,19,1)
+			}
+			#person-links{
+				margin:16px 16px 16px 16px;padding:0px 0px 0px 0px;
+			}
+			#person-links li{
+				list-style-type:none;width:100%;font-size:1.4em
+			}
+			#person-links li a{
+				background-color:rgba(247,148,29,0.8);color:white;display:block;padding:16px 16px 16px 16px;background-image:url('res/linkarrow.png');background-position:right center;background-repeat:no-repeat no-repeat;transition:background-color 0.5s ease
+			}
+			#person-links li a:hover{
+				background-color:rgba(247,148,29,1);
+			}
+			#person-social{
+				margin:16px 16px 16px 16px;padding:0px 0px 0px 0px;
+			}
+			#person-social li{
+				list-style-type:none;display:inline-block;width:25%;position:relative;opacity:0.8;background-position:center;background-repeat:no-repeat no-repeat;height:64px;padding-top:8px;padding-bottom:8px;background-size:64px 64px;margin:0px 0px 0px 0px;transition:opacity 0.5s ease
+			}
+			#person-social li:hover{
+				opacity:1
+			}
+			#person-social li a{
+				display:block;width:100%;height:100%;position:absolute;top:0px;left:0px;text-decoration:none;
+			}
+			
+			.fb{
+				background-color:#3b5999;background-image:url('res/social/fb.png')
+			}
+			.tw{
+				background-color:#55acee;background-image:url('res/social/tw.png')
+			}
+			.gp{
+				background-color:#dd4b39;background-image:url('res/social/gp.png')
+			}
+			.ml{
+				background-color:purple;background-image:url('res/social/ml.png')
+			}
+			
+			#contactform, #shareform{
+				position:fixed;top:0px;left:0px;background-color:rgba(129,130,134,0.8);width:100%;height:100%;z-index:300;display:none;
+			}
+			#contactform div, #shareform div{
+				border:solid 2px #F7941D;background-color:white;height:400px;width:30%;margin-left:auto;margin-right:auto;margin-top:128px;position:relative
+			}
+			#contactform div iframe, #shareform div iframe{
+				width:100%;height:100%;border:none
+			}
+			#contactform .close, #shareform .close{
+				z-index:399;position:absolute
+			}
+			
+			@media (max-width:700px){
+				#videowall ul li div{
+					opacity:1;position:absolute;bottom:0px;left:0px;height:25%;display:block
+				}
+				#person-info{
+					width:100%;margin-top:300px
+				}
+			}
+		</style>
+		<script type="text/javascript">
+			var iOS = /(iPad|iPhone|iPod)/g.test( navigator.userAgent );
+		
+			//Load YouTube Library
+			//Async load of Youtube API Code - TODO Load on Window load
+			var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		
+			//Close Person
+			function closePerson(elem){
+				window.document.getElementById(elem.parentNode.id).style.opacity = "0";
+				window.setTimeout(function(){window.document.body.removeChild(elem.parentNode);},1000);
+			}
+			
+			var personName;
+			var reqData;
+			var ajaxReq;
+			//Open Person
+			function openPerson(name){
+				//Get JSON file
+				personName = name;
+				ajaxReq = new XMLHttpRequest();
+				ajaxReq.open('get','people/' + name + '.json',false);
+				ajaxReq.send(null);
+				if(ajaxReq.status == 200){
+					if(ajaxReq.status == 200){
+						reqData = JSON.parse(ajaxReq.responseText);
+						//Create Person Element
+						var person = window.document.createElement("section");
+						person.setAttribute("id",name);
+						person.setAttribute("class","person");
+						var close = window.document.createElement("a");
+						close.setAttribute("href","#");
+						close.setAttribute("title","Close");
+						close.setAttribute("class","close");
+						close.setAttribute("onclick","closePerson(this);");
+						var closeImg = window.document.createElement("img");
+						closeImg.setAttribute("src","res/close.png");
+						closeImg.setAttribute("alt","Close");
+						close.appendChild(closeImg);
+						person.appendChild(close);
+						var ytPlayer = window.document.createElement("div");
+						ytPlayer.setAttribute("id","person-player");
+						person.appendChild(ytPlayer);
+						var ytControls = window.document.createElement("div");
+						ytControls.setAttribute("id","person-controls");
+						ytControls.setAttribute("class","person-controls");
+						person.appendChild(ytControls);	
+						var loader = window.document.createElement("div");
+						loader.setAttribute("class","loader");
+						loader.setAttribute("id","person-load");
+						var ldr = window.document.createElement("div");
+						ldr.setAttribute("id","person-load-ld");
+						ldr.appendChild(window.document.createTextNode(" "));
+						loader.appendChild(ldr);
+						person.appendChild(loader);
+						window.document.body.appendChild(person);				
+						
+						//Perform player functions asyncronously
+						window.setTimeout(function(){
+							window.document.getElementById(personName).style.backgroundImage = "url('res/thumb/" + personName + "1280.png')";
+							loaderAnimate("person-load",0);
+							window.document.getElementById(personName).innerhtml += "<div class=\"loader\" id=\"person-load\"><div id=\"person-load-ld\">&nbsp;</div></div><script type=\"text/javascript\">loaderAnimate('person-load',0);alert('run');<\/script>";
+							window.document.getElementById(personName).style.display = "block";
+							window.setTimeout(function(){window.document.getElementById(personName).style.opacity = "1";},50);
+							window.document.getElementById("person-controls").innerHTML = '<ul><li id="person-controls-play"><a href="javascript:void(0);" title="Play" onclick="personPlayer.playVideo();"><img src="res/play.png" alt="Play" /></a></li><li id="person-controls-pause"><a href="javascript:void(0);" title="Pause" onclick="personPlayer.pauseVideo();"><img src="res/pause.png" alt="Pause" /></a></li><li id="person-controls-volume"><a href="javascript:void(0);" title="Mute" onclick="togglePersonMute();"><img src="res/volume.png" alt="Volume" /></a></li><li id="person-controls-mute"><a href="javascript:void(0);" title="Unmute" onclick="togglePersonMute();"><img src="res/mute.png" alt="Mute" /></a></li><li id="person-controls-vol1" class="volume"><a href="javascript:void(0);" title="25%" onclick="setPersonVolume(25);"><img src="res/vol1a.png" alt="25%" /></a></li><li id="person-controls-vol2" class="volume"><a href="javascript:void(0);" title="50%" onclick="setPersonVolume(50);"><img src="res/vol2a.png" alt="50%" /></a></li><li id="person-controls-vol3" class="volume"><a href="javascript:void(0);" title="75%" onclick="setPersonVolume(75);"><img src="res/vol3a.png" alt="75%" /></a></li><li id="person-controls-vol4" class="volume"><a href="javascript:void(0);" title="100%" onclick="setPersonVolume(100);"><img src="res/vol4a.png" alt="100%" /></a></li></ul>';
+							createPersonPlayer(reqData.ytid);
+						},10);
+						
+						//Perform Person Data functions asyncronously
+						window.setTimeout(function(){
+							var article = window.document.createElement("article");
+							var header = window.document.createElement("h2");
+							header.appendChild(window.document.createTextNode(reqData.name));
+							article.appendChild(header);
+							var quote = window.document.createElement("blockquote");
+							quote.appendChild(window.document.createTextNode(reqData.quote));
+							article.appendChild(quote);
+							//Paragraphs
+							var i = 1;
+							while(eval("reqData.para" + i)){
+								var para = window.document.createElement("p");
+								para.appendChild(window.document.createTextNode(eval("reqData.para" + i)));
+								article.appendChild(para);
+								i++;
+							}
+							
+							//Play button
+							var play = window.document.createElement("div");
+							play.setAttribute("id","person-play");
+							var playlink = window.document.createElement("a");
+							playlink.setAttribute("href","javascript:void(0)");
+							playlink.setAttribute("title","Play Video");
+							playlink.setAttribute("onclick","if(iOS){openPersonVideo();}else{personPlayer.playVideo();}");
+							playlink.appendChild(window.document.createTextNode("Play Video"));
+							play.appendChild(playlink);
+							
+							//Links
+							var links = window.document.createElement("ul");
+							links.setAttribute("id","person-links");
+							i = 1;
+							while(eval("reqData.link" + i)){
+								var link = window.document.createElement("li");
+								var anchor = window.document.createElement("a");
+								anchor.setAttribute("href",eval("reqData.link" + i + ".url"));
+								anchor.setAttribute("title",eval("reqData.link" + i + ".ident"));
+								anchor.setAttribute("target","_blank");
+								anchor.appendChild(window.document.createTextNode(eval("reqData.link" + i + ".ident")));
+								link.appendChild(anchor);
+								links.appendChild(link);
+								i++;
+							}
+							var contact = window.document.createElement("li");
+							var contactAnchor = window.document.createElement("a");
+							contactAnchor.setAttribute("href","http://www.livesunlimited.org.uk/contact/enquiry-form/");
+							contactAnchor.setAttribute("title","Ask us a Question");
+							contactAnchor.setAttribute("target","_blank");
+							contactAnchor.appendChild(window.document.createTextNode("Ask us a Question"));
+							contact.appendChild(contactAnchor);
+							links.appendChild(contact);
+							
+							//Social Links
+							var social = window.document.createElement("ul");
+							social.setAttribute("id","person-social");
+							var fb = window.document.createElement("li");
+							fb.setAttribute("class","fb");
+							var fba = window.document.createElement("a");
+							fba.setAttribute("href","javascript:void(0);");
+							fba.setAttribute("title","Share on Facebook");
+							fba.setAttribute("onclick","sharePersonFB(window.document.getElementsByClassName('person')[0].id);return false;");
+							fba.appendChild(window.document.createTextNode(" "));
+							fb.appendChild(fba);
+							social.appendChild(fb);
+							
+							var tw = window.document.createElement("li");
+							tw.setAttribute("class","tw");
+							var twa = window.document.createElement("a");
+							twa.setAttribute("href","https://twitter.com/intent/tweet?url=http%3A%2F%2Flu.hurfo.com%2Fvideowall%23" + personName + "&via=livesunlimited");
+							twa.setAttribute("target","_blank");
+							twa.setAttribute("title","Share on Twitter");
+							twa.appendChild(window.document.createTextNode(" "));
+							tw.appendChild(twa);
+							social.appendChild(tw);
+							
+							var gp = window.document.createElement("li");
+							gp.setAttribute("class","gp");
+							var gpa = window.document.createElement("a");
+							gpa.setAttribute("href","https://plus.google.com/share?url=http%3A%2F%2Flu.hurfo.com%2Fvideowall%23" + personName);
+							gpa.setAttribute("target","_blank");
+							gpa.setAttribute("title","Share on Google+");
+							gpa.setAttribute("onclick","window.open(this.href,'plusshare','width=490px, height=640px, menubar=0, status=0');return false;");
+							gpa.appendChild(window.document.createTextNode(" "));
+							gp.appendChild(gpa)
+							social.appendChild(gp);
+							
+							var ml = window.document.createElement("li");
+							ml.setAttribute("class","ml");
+							var mla  = window.document.createElement("a");
+							mla.setAttribute("href","mailto:?subject=Lives+Unlimited&body=http%3A%2F%2Flu.hurfo.com%2Fvideowall%23" + personName);
+							mla.setAttribute("target","_blank");
+							mla.setAttribute("title","Share via Email");
+							mla.appendChild(window.document.createTextNode(" "));
+							ml.appendChild(mla);
+							social.appendChild(ml);
+							
+							//Person info
+							var personInfo = window.document.createElement("div");
+							personInfo.setAttribute("id","person-info");
+							personInfo.setAttribute("class", reqData.display);
+							personInfo.appendChild(article);
+							personInfo.appendChild(play);
+							personInfo.appendChild(links);
+							personInfo.appendChild(social);
+							window.document.getElementById(personName).appendChild(personInfo);
+						},100);
+					}
+				}
+			}
+			
+			function openPersonVideo(){
+				window.open("http://www.youtube.com/watch?v=" + reqData.ytid,"youtubePopout");
+			}
+			
+			//Show postvideo content
+			function showPersonData(){
+				if(window.document.getElementById("person-load")){
+						window.document.getElementById(personName).removeChild(window.document.getElementById("person-load"));
+					}
+				window.document.body.style.overflow = "auto";
+				window.document.getElementById("person-player").style.opacity = "0";
+				window.document.getElementById("person-controls").style.opacity = "0";
+				window.setTimeout(function(){
+					window.document.getElementById("person-player").style.display = "none";
+					window.document.getElementById("person-controls").style.display = "none";
+					window.document.getElementById("person-info").style.display = "block";
+					window.setTimeout(function(){window.document.getElementById("person-info").style.opacity = "1";},10);
+				},1000);
+			}
+						
+			//Video Player
+			var canLoadPlayer = false;
+			function onYouTubeIframeAPIReady(){
+				canLoadPlayer = true;
+			}
+			
+			var personPlayer;
+			var personVideoEndpoint;
+			function createPersonPlayer(ytid) {
+				if(canLoadPlayer == false){
+					window.setTimeout(function(){createPersonPlayer(ytid);}, 100);
+				}else{
+					personPlayer = new YT.Player('person-player', {
+						height: window.innerHeight,
+						width: window.innerWidth,
+						videoId: ytid,
+						playerVars: {
+							controls: 0,
+							rel: 0,
+							showinfo: 0
+						},
+						events: {
+							'onReady': onPersonPlayerReady,
+							'onStateChange': onPersonPlayerStateChange
+						}
+					});
+				}
+			}
+			
+			function onPersonPlayerReady(event) {
+				event.target.playVideo();
+				//Prevent scroll bars
+				window.document.body.style.overflow = "hidden";
+				//Set volume controller
+				if (event.target.isMuted() == true){
+					window.document.getElementById("person-controls-volume").style.display = "none";
+				}else{
+					window.document.getElementById("person-controls-mute").style.display = "none";
+				}
+				//Set Initial volume
+				if (event.target.getVolume() >= 25){
+					window.document.getElementById("person-controls-vol1").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol1.png";
+				}
+				if (event.target.getVolume() >= 50){
+					window.document.getElementById("person-controls-vol2").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol2.png";
+				}
+				if (event.target.getVolume() >= 75){
+					window.document.getElementById("person-controls-vol3").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol3.png";
+				}
+				if (event.target.getVolume() >= 100){
+					window.document.getElementById("person-controls-vol4").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol4.png";
+				}
+				//Start detection of Endpoint
+				//timeoutPersonEndpoint = window.setTimeout("timeoutPersonEndpointTest();",1000);
+			}
+			
+			function timeoutPersonEndpointTest(){
+				if(personPlayer.getCurrentTime() >= reqData.endpoint){
+					showPersonData();
+				//}else if(personPlayer.){
+				
+				}else{
+					timeoutPersonEndpoint = window.setTimeout("timeoutPersonEndpointTest();",1000);
+				}
+			}
+			
+			var timeoutPersonEndpoint;
+			
+			function onPersonPlayerStateChange(event) {
+				if (event.data == YT.PlayerState.ENDED) {
+					//Nothng currently
+				}else if (event.data == YT.PlayerState.PAUSED){
+					window.document.getElementById("person-controls-play").style.display = "inline-block";
+					window.document.getElementById("person-controls-pause").style.display = "none";
+				}else if (event.data == YT.PlayerState.PLAYING){
+					//Prevent scroll bars
+					window.document.body.style.overflow = "hidden";
+					if(window.document.getElementById("person-load")){
+						window.document.getElementById(personName).removeChild(window.document.getElementById("person-load"));
+					}
+					if(window.document.getElementById("person-info").style.opacity == 1){
+						window.document.getElementById("person-info").style.opacity = 0;
+						window.setTimeout(function(){
+							window.document.getElementById("person-info").style.display = "none";
+						},1000);
+					}
+					window.document.getElementById("person-player").style.display = "block";
+					window.document.getElementById("person-controls").style.display = "block";
+					window.setTimeout(function(){
+						window.document.getElementById("person-player").style.opacity = "1";
+						window.document.getElementById("person-controls").style.opacity = "1";
+					},10);
+					window.document.getElementById("person-controls-play").style.display = "none";
+					window.document.getElementById("person-controls-pause").style.display = "inline-block";
+					window.clearTimeout(timeoutPersonEndpoint);
+					//Start detection of Endpoint
+					timeoutPersonEndpoint = window.setTimeout("timeoutPersonEndpointTest();",1000);
+				}else if(event.data == YT.PlayerState.BUFFERING){
+					//Start play detection
+					window.setTimeout("detectAutoplay();",6000);
+				}
+			}
+			
+			function detectAutoplay(){
+				if(personPlayer.getCurrentTime() == 0 && personPlayer.getPlayerState() == YT.PlayerState.BUFFERING){
+					//Skip video
+					showPersonData();
+				}
+			}
+			
+			function setPersonVolume(vol){
+				personPlayer.unMute();
+				personPlayer.setVolume(vol);
+				if(vol == 25){
+					window.document.getElementById("person-controls-vol1").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol1.png";
+					window.document.getElementById("person-controls-vol2").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol2a.png";
+					window.document.getElementById("person-controls-vol3").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol3a.png";
+					window.document.getElementById("person-controls-vol4").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol4a.png";
+				}else if(vol == 50){
+					window.document.getElementById("person-controls-vol1").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol1.png";
+					window.document.getElementById("person-controls-vol2").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol2.png";
+					window.document.getElementById("person-controls-vol3").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol3a.png";
+					window.document.getElementById("person-controls-vol4").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol4a.png";
+				}else if(vol == 75){
+					window.document.getElementById("person-controls-vol1").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol1.png";
+					window.document.getElementById("person-controls-vol2").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol2.png";
+					window.document.getElementById("person-controls-vol3").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol3.png";
+					window.document.getElementById("person-controls-vol4").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol4a.png";
+				}else if(vol == 100){
+					window.document.getElementById("person-controls-vol1").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol1.png";
+					window.document.getElementById("person-controls-vol2").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol2.png";
+					window.document.getElementById("person-controls-vol3").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol3.png";
+					window.document.getElementById("person-controls-vol4").getElementsByTagName("a")[0].getElementsByTagName("img")[0].src = "res/vol4.png";
+				}
+			}
+			
+			function togglePersonMute(){
+				if(personPlayer.isMuted() == true){
+					personPlayer.unMute();
+					window.document.getElementById("person-controls-mute").style.display = "none";
+					window.document.getElementById("person-controls-volume").style.display = "inline-block";
+				}else{
+					personPlayer.mute();
+					window.document.getElementById("person-controls-mute").style.display = "inline-block";
+					window.document.getElementById("person-controls-volume").style.display = "none";
+				}
+			}
+			
+			//Launch Contact Form
+			function openContact(){
+				window.document.getElementById("contactform").style.display = "block";
+				window.open("contact.php","contactform-frame");
+				return false;
+			}
+			
+			//Close Contact Form
+			function closeContact(){
+				window.document.getElementById("contactform").style.display = "none";
+			}
+			
+			//Launch Share Form
+			function openShare(name){
+				window.document.getElementById("shareform").style.display = "block";
+				window.open("share.php?name=" + name,"shareform-frame");
+				return false;
+			}
+			
+			function closeShare(){
+				window.document.getElementById("shareform").style.display = "none";
+			}
+			
+			//Share FB story
+			function sharePersonFB(name){
+				FB.ui({
+					method: 'share',
+					href: 'http://lu.hurfo.com/videowall/?name=' + name
+				},function(response){});
+			}
+			
+			//Detect if User on load
+			function launchDetect(){
+				var urlparts = window.location.href.split("#");
+				if(urlparts[1]){
+					if(urlparts[1] != ""){
+						openPerson(urlparts[1]);
+					}
+				}
+			}
+			
+			//Loader Animation
+			function loaderAnimate(id,frame){
+				if(window.document.getElementById(id)){
+					if(frame == 9){
+						frame = 0;
+					}else{
+						frame++;
+					}
+					var position;
+					if(frame == 0){
+						position = 0;
+					}else if(frame == 1 || frame == 9){
+						postion = -79;
+					}else if(frame == 2 || frame == 8){
+						position = -158;
+					}else if(frame == 3 || frame == 7){
+						position = -237;
+					}else if(frame == 4 || frame == 6){
+						position = -316;
+					}else{
+						position = -395;
+					}
+					window.document.getElementById(id + "-ld").style.backgroundPositionX = position + "px";
+					window.setTimeout("loaderAnimate('" + id + "'," + frame + ");",60);
+				}
+			}
+		</script>
+
+		<!-- Opengraph sharing info -->
+		<meta property="og:url" content="http://lu.hurfo.com/videowall/" />
+		<meta property="og:title" content="Lives Unlimited Videowall" />
+		<meta property="og:description" content="See how Personal Care Budgets have impacted people's lives" />
+		<meta property="og:image" content="http://lu.hurfo.com/videowall/res/thumb/alec256.png" />
+	</head>
+	<body>
+		<!-- Load Facebook JS API -->
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId      : '860905707285367',
+					xfbml      : true,
+					version    : 'v2.1'
+				});
+			};
+
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+		<header>
+			<h1>&nbsp;<span>Lives Unlimited</span><a href="http://www.livesunlimited.org.uk/" title="Lives Unlimited">&nbsp;</a></h1>
+		</header>
+		<!-- Show videos which can be selected -->
+		<nav id="videowall"><ul>
+			<li style="background-image:url('res/thumb/alec256.png');"><div><p>Alec</p></div><a href="#alec" title="Find out more about Alec" onclick="openPerson('alec')">&nbsp;</a></li>
+			<li style="background-image:url('res/thumb/josh256.png');"><div><p>Josh</p></div><a href="#josh" title="Find out more about Josh" onclick="openPerson('josh')">&nbsp;</a></li>
+			<li style="background-image:url('res/thumb/pete256.png');"><div><p>Pete</p></div><a href="#pete" title="Find out more about Pete" onclick="openPerson('pete')">&nbsp;</a></li>
+			<li style="background-image:url('res/thumb/phil256.png');"><div><p>Phil</p></div><a href="#phil" title="Find out more about Phil" onclick="openPerson('phil')">&nbsp;</a></li>
+			<li style="background-image:url('res/thumb/tom256.png');"><div><p>Tom</p></div><a href="#tom" title="Find out more about Tom" onclick="openPerson('tom')">&nbsp;</a></li>
+		</ul></nav>
+		<footer>
+			<ul>
+				<li id="footer-lu"><a href="http://www.livesunlimited.org.uk/" target="_blank" title="A Lives Unlimited Project">&nbsp;<span>Lives Unlimited</span></a></li>
+				<li id="footer-tr"><a href="http://www.trcf.org.uk/" target="_blank" title="Funded by Two Riding Community Foundation">&nbsp;<span>Two Ridings Community Foundation</span></a></li>
+				<li id="footer-iy"><a href="http://www.inspiredyouth.org/" target="_blank" title="Video Production by Inspired Youth">&nbsp;<span>Inspired Youth</span></a></li>
+				<li id="footer-ev"><a href="http://www.everlate.com/" target="_blank" title="Music with kind permission from Everlate">&nbsp;<span>Everlate</span></a></li>
+				<li id="footer-hu"><a href="http://www.hurfo.com/" target="_blank" title="Site Design by Owen Hurford">&nbsp;<span>Owen Hurford</span></a></li>
+				<li>This website uses cookies - See terms at www.livesunlimited.org.uk</li>
+			</ul>
+		</footer>
+		
+		<!-- Detect if Person requires loading -->
+		<script type="application/javascript">
+			var nameArr = window.location.href.split("#")
+			if (nameArr.length > 1 && nameArr[1] != "") {
+				openPerson(nameArr[1]);
+			} else {
+				launchDetect();
+			}
+		</script>
+	</body>
+</html>

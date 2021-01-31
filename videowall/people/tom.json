@@ -1,0 +1,16 @@
+{
+	"name": "Tom",
+	"ytid": "Ek-oC34vZKM",
+	"endpoint": 92,
+	"display": "right",
+	"quote": "Fridays at The Edge are just the end of a busy week for Tom and his Personal Assistants.",
+	"para1": "Tom has used his Personal Budget to do what he loves most, helping people.  After a Circles of Support meeting, Tom got the budget he needed for his Personal Assistants.  They help him while he's volunteering and putting on gigs in York.",
+	"link1": {
+		"url": "http://www.livesunlimited.org.uk/what-we-do/circles/",
+		"ident": "Find out more about Circles"
+	},
+	"link2": {
+		"url": "https://www.gov.uk/pip/overview",
+		"ident": "What is a Personal Independence Payment?"
+	}
+}
